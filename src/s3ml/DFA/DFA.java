@@ -58,7 +58,7 @@ public class DFA {
         }
 
         KKLayout<State, Transition> kkLayout = new KKLayout(graph);
-        kkLayout.setSize(new Dimension(400, 300));
+        kkLayout.setSize(new Dimension(600, 600));
 
         final VisualizationViewer<State, Transition> vv = new VisualizationViewer<>(kkLayout);
 

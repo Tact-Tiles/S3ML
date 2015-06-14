@@ -118,14 +118,21 @@ public class GestureEditor extends JPanel implements Step {
                     switch (ke.getKeyCode()) {
                         case KeyEvent.VK_ENTER:
                             String symbol = null;
-
+                            int s = 0;
                             while (symbol == null || symbol.equals("")) {
-                                symbol = JOptionPane.showInputDialog("Qual o symbolo?");
+                                symbol = JOptionPane.showInputDialog("Insert gesture code (integer greater than 0):");
+                                try {
+                                    s = Integer.parseInt(symbol);
+                                    if (s <= 0) {
+                                        symbol = null;
+                                    }
+                                } catch (NumberFormatException e) {
+                                    symbol = null;
+                                }
                                 if (symbol == null || symbol.equals("")) {
-                                    JOptionPane.showMessageDialog(null, "Você não respondeu a pergunta.");
+                                    JOptionPane.showMessageDialog(null, "Try again, with a integer greater than 0:");
                                 }
                             }
-                            int s = Integer.parseInt(symbol);
                             gestures.add(0, new Gesture(selecteds, s));
                             selecteds = new ArrayList<>();
                             break;
@@ -334,7 +341,7 @@ public class GestureEditor extends JPanel implements Step {
 
     @Override
     public void doStep() {
-        
+
     }
 
     @Override

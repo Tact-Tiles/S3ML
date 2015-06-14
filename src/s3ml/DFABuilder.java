@@ -135,60 +135,7 @@ public class DFABuilder extends JPanel implements Step {
             }
         });
 
-        DefaultModalGraphMouse gm = new DefaultModalGraphMouse();
-        gm.setMode(ModalGraphMouse.Mode.TRANSFORMING);
-        vv.setGraphMouse(gm);
-        final JFrame frame = new JFrame();
-        JMenuBar jMenuBar = new JMenuBar();
-        jMenuBar.add(gm.getModeMenu());
-        frame.setJMenuBar(jMenuBar);
-        frame.getContentPane().add(vv);
-        frame.pack();
-
-        JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, frame.getRootPane(), new JScrollPane(textArea) {
-            {
-//                setPreferredSize(new Dimension(100, 100));
-            }
-        });
-        sp.setDividerLocation(.2);
-
-        add(sp, BorderLayout.CENTER);
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        try {
-                            Thread.sleep(10);
-                            for (s3ml.DFA.State s : dfa.states) {
-                                if (!graph.getVertices().contains(s)) {
-                                    graph.addVertex(s);
-                                }
-                            }
-                            for (Transition t : dfa.transitions) {
-                                if (!graph.getEdges().contains(t)) {
-                                    graph.addEdge(t, t.a, t.b);
-                                }
-                            }
-                            for (s3ml.DFA.State s : graph.getVertices()) {
-                                if (!dfa.states.contains(s)) {
-                                    graph.removeVertex(s);
-                                }
-                            }
-                            for (Transition t : graph.getEdges()) {
-                                if (!dfa.transitions.contains(t)) {
-                                    graph.removeEdge(t);
-                                }
-                            }
-                        } catch (Exception ex) {
-                        }
-                        vv.repaint();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }.start();
+        add(new JScrollPane(textArea), BorderLayout.CENTER);
     }
 
     @Override
