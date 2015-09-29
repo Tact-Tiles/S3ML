@@ -187,10 +187,12 @@ public class InputEditor extends JPanel implements Step {
                     g2.setColor(Color.yellow);
                 }
                 Ellipse2D s = map.get(e);
-                g2.fill(s);
-                g2.setColor(Color.black);
-                g2.draw(s);
-                g2.drawString(" " + (char) i, (int) s.getX() + 5, (int) s.getY() + 35);
+                if (s != null) {
+                    g2.fill(s);
+                    g2.setColor(Color.black);
+                    g2.draw(s);
+                    g2.drawString(" " + (char) i, (int) s.getX() + 5, (int) s.getY() + 35);
+                }
                 i++;
             }
             g2.scale(1 / scale, 1 / scale);
@@ -200,7 +202,7 @@ public class InputEditor extends JPanel implements Step {
 
     @Override
     public void build() {
-        
+
     }
 
     @Override

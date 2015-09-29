@@ -174,29 +174,28 @@ public class DFABuilder extends JPanel implements Step {
         boolean debounce = true;
 
         for (Gesture g : s.gestures) {
+            int i  = 0;
             State lastState = startState;
-            for (Iterator<ArrayList<Integer>> it = g.msg.iterator(); it.hasNext();) {
+            for (Iterator<ArrayList<Integer>> it = g.msg.iterator(); it.hasNext(); i++) {
                 ArrayList<Integer> keyDescr = it.next();
                 int k = this.s.alphabetMap.get(keyDescr);
                 boolean stateExists = false;
+                int j = 0;
                 for (Transition t : transitions) {
-                    if (t.a == lastState && t.symbol == k) {
+                    if (t.a == lastState && t.symbol == k && i == j) {
                         stateExists = true;
                         lastState = t.b;
+                        //break?
+                        j++;
                     }
                 }
                 if (!stateExists) {
                     State newState = new State();
-                    if (!it.hasNext()) {
-                        newState.finalState = true;
-                        //transitions.add(new Transition(k, newState, newState));
-                        newState.outputSymbol = g.symbol;
-                    }
                     states.add(newState);
                     transitions.add(new Transition(k, lastState, newState));
                     if (debounce) {
                         transitions.add(new Transition(0, newState, newState));
-                        transitions.add(new Transition(k, newState, newState));
+//                        transitions.add(new Transition(k, newState, newState));
 //                        out.println("State #" + newState.id + " debounce inputs:");
 //                        for (ArrayList<Integer> ki : getAllCombinations(keyDescr)) {
 //                            if (this.s.alphabetMap.containsKey(ki)){
@@ -212,6 +211,11 @@ public class DFABuilder extends JPanel implements Step {
 //                    } catch (Exception e) {
 //
 //                    }
+                }
+                if (!it.hasNext()) {
+                    lastState.finalState = true;
+                    //transitions.add(new Transition(k, newState, newState));
+                    lastState.outputSymbol = g.symbol;
                 }
             }
         }
@@ -268,7 +272,6 @@ public class DFABuilder extends JPanel implements Step {
             out.println(" ");
         }
 
-        
         dfa.print(true);
         //add(dfa.print(false).getRootPane(), BorderLayout.CENTER);
         updateUI();

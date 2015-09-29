@@ -68,8 +68,8 @@ public class S3ML {
         steps.add(new DFABuilder());
         steps.add(new UpdateDevice());
 
-        if (new File("default.glove").exists()) {
-            Settings.load("default.glove");
+        if (new File("default2.glove").exists()) {
+            Settings.load("default2.glove");
         }
 
         for (Step s : steps) {
@@ -131,9 +131,12 @@ public class S3ML {
             public void actionPerformed(ActionEvent ae) {
                 int returnVal = chooser.showOpenDialog(frame);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    tabbedPane.setSelectedIndex(0);
                     Settings.load(chooser.getSelectedFile().toString());
                     for (Step s : steps) {
                         s.setSettings(Settings.getCurrentSettings());
+                        s.build();
+                        tabbedPane.add(s.getJPanel());
                     }
                     System.out.println("You chose to open this file: " + chooser.getSelectedFile().toString());
                 }

@@ -14,6 +14,7 @@
 package audiobl.wavCreator;
 
 import audiobl.hexTools.IntelHexFormat;
+import audiobl.waveFile.AePlayWave;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import audiobl.waveFile.WavFile;
 import java.util.Arrays;
+import javax.swing.JProgressBar;
 
 public class WavCodeGenerator {
 
@@ -181,11 +183,11 @@ public class WavCodeGenerator {
         BootFrame bf = new BootFrame();
         WavCodeGenerator w = new WavCodeGenerator();
         double[] signal = new double[]{0};
-        double[] init = new double[]{1, 1, 1, 1, -1, -1, -1, -1};
-        for (int i = 0; i < 3000; i++) {
-            signal = appendSignal(signal, init);
+        for (int i = 0; i < 10; i++) {
+            signal = appendSignal(signal, makeCommand(1, bf));
+            signal = appendSignal(signal, silence(.01));
         }
-        signal = appendSignal(signal, silence(.5));
+
         bf.setCommand(5);
         int total = data.length;
         int sigPointer = 0;
@@ -223,17 +225,22 @@ public class WavCodeGenerator {
         }
         signal = appendSignal(signal, silence(silenceBetweenPages));
         signal = appendSignal(signal, makeCommand(6, bf));
+        signal = appendSignal(signal, silence(silenceBetweenPages));
         File file = new File("eeprom.wav");
         w.saveWav(signal, file);
         return file;
     }
 
     public static void main(String[] args) throws Exception {
-        int size = 300;
-        byte data[] = new byte[size];
-        for (int i = 0; i < size; i++) {
-            data[i] = (byte) i;
-        }
-        createWavFile(data, 20, 2);
+//        int size = 300;
+//        byte data[] = new byte[size];
+//        for (int i = 0; i < size; i++) {
+//            data[i] = (byte) i;
+//        }
+//        createWavFile(data, 20, 2);
+        File f = WavCodeGenerator.createWavFile(new byte[]{}, 64, 1);
+        Thread player = new AePlayWave(f.toString(), (JProgressBar) null);
+        player.start();
+        player.join();
     }
 }
