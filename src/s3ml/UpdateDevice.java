@@ -77,7 +77,7 @@ public class UpdateDevice extends JPanel implements Step {
                 data[i] = s.data.get(i);
             }
 
-            File f = WavCodeGenerator.createWavFile(data, 64, 1);
+            File f = WavCodeGenerator.createWavFile(data, 64, .3);
             player = new AePlayWave(f.toString(), progressbar);
             player.start();
         }

@@ -68,8 +68,8 @@ public class S3ML {
         steps.add(new DFABuilder());
         steps.add(new UpdateDevice());
 
-        if (new File("default2.glove").exists()) {
-            Settings.load("default2.glove");
+        if (new File("default.glove").exists()) {
+            Settings.load("default.glove");
         }
 
         for (Step s : steps) {
@@ -103,8 +103,9 @@ public class S3ML {
         JButton newButton = new JButton(new AbstractAction("New") {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                Settings resetSettings = Settings.resetSettings();
                 for (Step s : steps) {
-                    s.setSettings(Settings.resetSettings());
+                    s.setSettings(resetSettings);
                 }
                 for (Step s : steps) {
                     if (tabbedPane.getSelectedComponent() == s.getJPanel()) {

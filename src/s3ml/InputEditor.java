@@ -44,7 +44,6 @@ public class InputEditor extends JPanel implements Step {
     Settings s = null;
     List<Integer> inputs = new ArrayList<>();
     Map<Integer, Ellipse2D> map = new HashMap<>();
-    private boolean isDone = false;
 
     public InputEditor() {
         super.setName("Input Editor");
@@ -228,16 +227,16 @@ public class InputEditor extends JPanel implements Step {
             Ellipse2D v = e.getValue();
             s.getMap().put(e.getKey(), Arrays.asList(v.getX(), v.getY(), v.getWidth(), v.getHeight()));
         }
-        isDone = true;
+        //isDone = true;
     }
 
     @Override
     public boolean isDone() {
-        return isDone;
+        return true; //isDone;
     }
 
     @Override
     public void setUndone() {
-
+        
     }
 }

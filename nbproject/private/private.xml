@@ -19,10 +19,13 @@
         <group>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/InputEditor.java</file>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/DFA/DFA.java</file>
+            <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/Settings.java</file>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/S3ML.java</file>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/audiobl/wavCreator/WavCodeGenerator.java</file>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/DFABuilder.java</file>
             <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/GestureEditor.java</file>
+            <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/UpdateDevice.java</file>
+            <file>file:/home/anderson/NetBeansProjects/S3ML/src/s3ml/AlphabetMapping.java</file>
         </group>
     </open-files>
 </project-private>
